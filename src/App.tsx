@@ -1,24 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./App.scss";
+
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useState } from "react";
+
+import Aside from "./components/Aside/index";
+import Choice from "./components/Choice/Choice";
+import Header from "./components/Header";
+
+const theme = createTheme({
+  palette: {
+    secondary: {
+      contrastText: "#fefefe",
+      main: "#4CAF50",
+    },
+  },
+});
 
 function App() {
+  const [selectedOption, setSelectedOption] = useState<string>("choice");
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ThemeProvider theme={theme}>
+        <Header setSelectedOption={setSelectedOption} />
+        <main>
+          <Aside />
+          {selectedOption === "choice" ? <Choice /> : null}
+        </main>
+      </ThemeProvider>
     </div>
   );
 }
