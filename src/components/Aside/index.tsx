@@ -1,49 +1,36 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 
-import IChoice from './../Choice/interfaces/IChoice';
+import IChoice from '../Choice/IChoice';
 
 import { AsideWrapper, AsideWrapperItem } from './index.styles';
+import SummaryChoiceTitle from './SummaryChoiceTitle';
 
 export default function Aside() {
-	const [yourChoices, setYourChoices] = useState<any>([]);
+	const [choicesSummary, setChoicesSummary] = useState<any>([]);
+
 	useEffect(() => {
 		const data = JSON.parse(JSON.stringify(localStorage));
-		let dataArr: IChoice[] = [];
+		let choices: IChoice[] = [];
 		for (const key in data) {
 			if (Object.prototype.hasOwnProperty.call(data, key)) {
 				const element = JSON.parse(data[key]);
-				dataArr = [...dataArr, element];
+				choices = [...choices, element];
 			}
-			setYourChoices(dataArr);
+			setChoicesSummary(choices);
 		}
 	}, []);
-	interface IChoceTitle {
-		currentKey: any;
-		txt: any;
-	}
-
-	let choicesWidthArray: any = [];
-	const ChoiceTitle = ({ currentKey, txt }: IChoceTitle) => {
-		return (
-			<p ref={(ref) => (choicesWidthArray[currentKey] = ref?.offsetWidth)}>
-				{txt}
-			</p>
-		);
-	};
-	const choiceTitleRef = useRef<HTMLParagraphElement>(null);
-
-	useEffect(() => {
-		if (choicesWidthArray.length > 0) console.log(choicesWidthArray);
-	}, [choicesWidthArray]);
 
 	return (
 		<AsideWrapper>
 			<h1>Your choices</h1>
-			{yourChoices.map((item: IChoice, key: any) => {
+			{choicesSummary.map((choice: IChoice, key: number) => {
 				return (
-					<AsideWrapperItem>
-						<ChoiceTitle currentKey={key} txt={item.txt}></ChoiceTitle>
-						<p>{item.suggestion}</p>
+					<AsideWrapperItem key={key}>
+						<SummaryChoiceTitle
+							currentKey={key}
+							text={choice.text}
+						></SummaryChoiceTitle>
+						<p>{choice.suggestion}</p>
 					</AsideWrapperItem>
 				);
 			})}

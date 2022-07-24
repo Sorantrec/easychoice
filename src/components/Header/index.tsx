@@ -1,19 +1,19 @@
-import { Button } from "@mui/material";
+import CustomButton from '../CustomButton';
 
-interface IHeader {
-  setSelectedOption: (item: string) => void;
-}
+import IHeader from './IHeader';
 
 export default function Header({ setSelectedOption }: IHeader) {
-  return (
-    <header>
-      <h1 className="logo">EasyChoice</h1>
-      <Button variant="contained" onClick={() => setSelectedOption("choice")}>
-        Make choice
-      </Button>
-      <Button variant="contained" onClick={() => setSelectedOption("compare")}>
-        Compare choices
-      </Button>
-    </header>
-  );
+	return (
+		<header>
+			<h1 className="logo">EasyChoice</h1>
+			<CustomButton
+				text="Make choice"
+				onClick={() => setSelectedOption('choice')}
+			/>
+			<CustomButton
+				text="Compare choices"
+				onClick={() => setSelectedOption('compare')}
+			/>
+		</header>
+	);
 }

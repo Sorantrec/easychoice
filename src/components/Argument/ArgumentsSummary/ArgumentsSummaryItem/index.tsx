@@ -1,8 +1,7 @@
 import { FaWeightHanging } from 'react-icons/fa';
+import IArgumentItem from './interfaces/IArgumentItem';
 
-import IItem from './interfaces/IItem';
-
-export default function Item({ txt, weight }: IItem) {
+export default function ArgumentsSummaryItem({ text, weight }: IArgumentItem) {
 	const renderWeight = (weight: number) => {
 		if (weight === 1) return <FaWeightHanging />;
 		if (weight === 2)
@@ -24,8 +23,8 @@ export default function Item({ txt, weight }: IItem) {
 
 	return (
 		<div>
-			<p>{txt}</p>
-			<p>{txt && renderWeight(weight)}</p>
+			<p>{text}</p>
+			<p>{text && renderWeight(weight)}</p>
 		</div>
 	);
 }
