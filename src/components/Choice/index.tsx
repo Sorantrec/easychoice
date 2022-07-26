@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 
 import { TitleField } from './TitleField';
 import Argument from '../Argument';
@@ -9,7 +9,13 @@ import Suggestion from './Suggestion';
 import IArgumentItem from '../Argument/ArgumentsSummary/ArgumentsSummaryItem/interfaces/IArgumentItem';
 import IChoice from './IChoice';
 
+import reducer from './../reducer';
+import { initialState } from './../reducer';
+
 export default function Choice() {
+	
+	const [state, dispatch] = useReducer(reducer, initialState);
+
 	const [choiceTitle, setChoiceTitle] = useState<string>('');
 
 	const [cons, setCons] = useState<IArgumentItem[]>([]);
@@ -28,13 +34,13 @@ export default function Choice() {
 		cons.forEach((item) =>
 			setConsImportance(() => consImportance + item.weight)
 		);
-	}, [cons]);
+	}, [cons, consImportance]);
 
 	useEffect(() => {
 		pros.forEach((item) =>
 			setProsImportance(() => prosImportance + item.weight)
 		);
-	}, [pros]);
+	}, [pros, prosImportance]);
 
 	useEffect(() => {
 		if (savedChoice) {

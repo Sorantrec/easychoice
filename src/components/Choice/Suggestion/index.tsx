@@ -1,11 +1,6 @@
 import { useEffect } from 'react';
 
-interface ISuggestion {
-	consImportance: number;
-	prosImportance: number;
-	setSuggestion: (value: string) => void;
-	suggestion: string;
-}
+import ISuggestion from './ISuggestion';
 
 export default function Suggestion({
 	consImportance,
@@ -20,7 +15,7 @@ export default function Suggestion({
 				setSuggestion('Probably bad choice');
 			else setSuggestion('Too complected to make a good choice');
 		}
-	}, [consImportance, prosImportance]);
+	}, [consImportance, prosImportance, setSuggestion]);
 
 	return <div>{suggestion}</div>;
 }
