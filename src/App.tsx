@@ -1,7 +1,7 @@
 import './App.scss';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useState } from 'react';
+import { useState, createContext } from 'react';
 
 import Aside from './components/Aside';
 import Choice from './components/Choice';
@@ -18,15 +18,19 @@ const theme = createTheme({
 
 function App() {
 	const [selectedOption, setSelectedOption] = useState<string>('choice');
+	const initialState: any[] = [];
+	const Data = createContext(initialState);
 
 	return (
 		<div className="App">
 			<ThemeProvider theme={theme}>
-				<Header setSelectedOption={setSelectedOption} />
-				<main>
-					<Aside />
-					{selectedOption === 'choice' ? <Choice /> : null}
-				</main>
+				<Data.Provider value={initialState}>
+					<Header setSelectedOption={setSelectedOption} />
+					<main>
+						<Aside />
+						{selectedOption === 'choice' ? <Choice /> : null}
+					</main>
+				</Data.Provider>
 			</ThemeProvider>
 		</div>
 	);

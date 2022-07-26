@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import { TextField } from '@mui/material';
 import ArgumentsSummary from './ArgumentsSummary';
@@ -20,7 +20,7 @@ export default function Argument({
 	const [importance, setImportance] = useState<number>(1);
 	const [error, setError] = useState<boolean>(false);
 
-	const addArgument = () => {
+	const addArgument = useCallback(() => {
 		if (argument.length > 1 && choiceTitle.length > 1) {
 			if (!error)
 				setArguments((oldItems: IArgumentItem[]) => [
@@ -29,7 +29,7 @@ export default function Argument({
 				]);
 			setError(false);
 		} else setError(true);
-	};
+	}, [argument, choiceTitle]);
 
 	return (
 		<Wrapper>

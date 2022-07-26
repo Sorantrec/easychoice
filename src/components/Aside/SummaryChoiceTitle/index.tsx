@@ -1,14 +1,5 @@
 import ISummaryChoiceTitle from './ISummaryChoiceTitle';
 
-export default function SummaryChoiceTitle({
-	currentKey,
-	text,
-}: ISummaryChoiceTitle) {
-	let choicesWidthArray: any = [];
-
-	return (
-		<p ref={(ref) => (choicesWidthArray[currentKey] = ref?.offsetWidth)}>
-			{text}
-		</p>
-	);
+export default function SummaryChoiceTitle({ text }: ISummaryChoiceTitle) {
+	return <p>{text}</p>;
 }

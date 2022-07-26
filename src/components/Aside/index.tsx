@@ -6,7 +6,7 @@ import { AsideWrapper, AsideWrapperItem } from './index.styles';
 import SummaryChoiceTitle from './SummaryChoiceTitle';
 
 export default function Aside() {
-	const [choicesSummary, setChoicesSummary] = useState<any>([]);
+	const [choicesSummary, setChoicesSummary] = useState<IChoice[]>([]);
 
 	useEffect(() => {
 		const data = JSON.parse(JSON.stringify(localStorage));
