@@ -1,23 +1,30 @@
-import { TextField } from '@mui/material';
-
 import ITitleField from './ITitleField';
+import ErrorMessage from './../Error';
+import { useState } from 'react';
 
-const errorMessage = 'Field is required';
+const errorMessages = {
+	invalid: 'Field is required',
+};
 
-export const TitleField = ({
-	choiceTitle,
-	setChoiceTitle,
-	saveBtnClicked,
-}: ITitleField) => {
+export const TitleField = ({ choiceTitle, setChoiceTitle }: ITitleField) => {
+	const [errors, setErrors] = useState<string[]>([]);
+
 	return (
-		<TextField
-			error={saveBtnClicked && choiceTitle === ''}
-			helperText={saveBtnClicked && choiceTitle === '' ? errorMessage : null}
-			id="outlined-basic"
-			label="Title"
-			onChange={(event) => setChoiceTitle(event.target.value)}
-			required
-			variant="outlined"
-		/>
+		<label>
+			<p>Title</p>
+			<input
+				type="text"
+				onChange={(event) => setChoiceTitle(event.target.value)}
+				onInvalid={() => {
+					setErrors((state) => [
+						...state.filter((error) => error !== errorMessages.invalid),
+						errorMessages.invalid,
+					]);
+				}}
+				value={choiceTitle}
+				required
+			/>
+			<ErrorMessage errorMessages={errors} />
+		</label>
 	);
 };
