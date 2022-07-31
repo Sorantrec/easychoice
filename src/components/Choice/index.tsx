@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import { TitleField } from './TitleField';
 import Argument from '../Argument';
@@ -8,13 +8,11 @@ import Suggestion from './Suggestion';
 
 import IArgumentItem from '../Argument/ArgumentsSummary/ArgumentsSummaryItem/interfaces/IArgumentItem';
 import IChoice from './IChoice';
-
-import reducer from './../reducer';
-import { initialState } from './../reducer';
+import { AppContext } from '../../reducers/context';
+import { createChoice } from '../../reducers/actions';
 
 export default function Choice() {
-	
-	const [state, dispatch] = useReducer(reducer, initialState);
+	const { dispatch } = useContext(AppContext);
 
 	const [choiceTitle, setChoiceTitle] = useState<string>('');
 
@@ -30,44 +28,44 @@ export default function Choice() {
 
 	const [suggestion, setSuggestion] = useState<string>('');
 
-	useEffect(() => {
-		cons.forEach((item) =>
-			setConsImportance(() => consImportance + item.weight)
-		);
-	}, [cons, consImportance]);
+	// useEffect(() => {
+	// 	cons.forEach((item) =>
+	// 		setConsImportance(() => consImportance + item.weight)
+	// 	);
+	// }, [cons, consImportance]);
 
-	useEffect(() => {
-		pros.forEach((item) =>
-			setProsImportance(() => prosImportance + item.weight)
-		);
-	}, [pros, prosImportance]);
+	// useEffect(() => {
+	// 	pros.forEach((item) =>
+	// 		setProsImportance(() => prosImportance + item.weight)
+	// 	);
+	// }, [pros, prosImportance]);
 
-	useEffect(() => {
-		if (savedChoice) {
-			window.localStorage.setItem(
-				savedChoice.text.split(' ').join('_'),
-				JSON.stringify(savedChoice)
-			);
-		}
-	}, [savedChoice]);
+	// useEffect(() => {
+	// 	if (savedChoice) {
+	// 		window.localStorage.setItem(
+	// 			savedChoice.text.split(' ').join('_'),
+	// 			JSON.stringify(savedChoice)
+	// 		);
+	// 	}
+	// }, [savedChoice]);
 
-	const saveChoice = () => {
-		setSaveBtnClicked(true);
-		if (consImportance || prosImportance) {
-			setSavedChoice({
-				text: choiceTitle,
-				suggestion: suggestion,
-				details: {
-					cons: consImportance,
-					pros: prosImportance,
-					hint:
-						consImportance < 5 || prosImportance < 5
-							? 'Maybe you should add more cons or pros?'
-							: '',
-				},
-			});
-		}
-	};
+	// const saveChoice = () => {
+	// 	setSaveBtnClicked(true);
+	// 	if (consImportance || prosImportance) {
+	// 		setSavedChoice({
+	// 			text: choiceTitle,
+	// 			suggestion: suggestion,
+	// 			details: {
+	// 				cons: consImportance,
+	// 				pros: prosImportance,
+	// 				hint:
+	// 					consImportance < 5 || prosImportance < 5
+	// 						? 'Maybe you should add more cons or pros?'
+	// 						: '',
+	// 			},
+	// 		});
+	// 	}
+	// };
 
 	return (
 		<form>
@@ -95,7 +93,7 @@ export default function Choice() {
 				setSuggestion={setSuggestion}
 				suggestion={suggestion}
 			/>
-			<CustomButton text="Save choice" onClick={saveChoice} />
+			<button>Save choice</button>
 		</form>
 	);
 }
