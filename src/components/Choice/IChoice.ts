@@ -1,4 +1,5 @@
 export default interface IChoice {
+	id: string;
 	suggestion: string;
 	text: string;
 	details: {

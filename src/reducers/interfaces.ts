@@ -1,4 +1,6 @@
 import IChoice from '../components/Choice/IChoice';
+import IArgument from './../components/Argument/IArgument';
+
 import { ActionTypes } from './types';
 
 export interface ICreateChoiceActionType {

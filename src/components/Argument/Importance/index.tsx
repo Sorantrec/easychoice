@@ -8,23 +8,20 @@ import {
 
 import IImportance from './IImportance';
 
-export default function Importance({
-	importance,
-	itemError,
-	setImportance,
-}: IImportance) {
+export default function Importance({ importance, setImportance }: IImportance) {
 	return (
 		<FormControl fullWidth>
-			<InputLabel id="demo-simple-select-label">Weight</InputLabel>
+			<InputLabel id="demo-simple-select-label">Importance</InputLabel>
 			<Select
 				id="demo-simple-select"
-				label="Weight"
+				label="Importance"
 				labelId="demo-simple-select-label"
-				error={itemError}
+				required
 				value={String(importance)}
 				onChange={(event: SelectChangeEvent) =>
 					setImportance(Number(event.target.value))
 				}
+				defaultValue="Low"
 			>
 				<MenuItem value={1}>Low</MenuItem>
 				<MenuItem value={2}>Middle</MenuItem>

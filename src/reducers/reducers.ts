@@ -29,7 +29,15 @@ export default function choicesReducers(
 
 	switch (action.type) {
 		case CREATE_CHOICE:
-			return (state = { choices: [...choices, action.payload] });
+			return (state = {
+				choices: [
+					...choices.filter((choice) => choice.id !== action.payload.id),
+					action.payload,
+				],
+			});
+
+		// case ADD_ARGUMENT:
+		// 	return (state = { choices: [...choices, action.payload] });
 
 		default:
 			return state;

@@ -8,28 +8,26 @@ import Importance from './Importance';
 import { FormWrapper, Wrapper } from './index.styles';
 
 import IArgumentItem from './ArgumentsSummary/ArgumentsSummaryItem/interfaces/IArgumentItem';
-import IProps from './IArgument';
+import IArgument from './IArgument';
 
-export default function Argument({
-	choiceTitle,
-	args,
-	name,
-	setArguments,
-}: IProps) {
+export default function Argument({ name, args }: IArgument) {
 	const [argument, setArgument] = useState<string>('');
 	const [importance, setImportance] = useState<number>(1);
 	const [error, setError] = useState<boolean>(false);
+	const { data, setArg } = args;
 
 	const addArgument = useCallback(() => {
-		if (argument.length > 1 && choiceTitle.length > 1) {
-			if (!error)
-				setArguments((oldItems: IArgumentItem[]) => [
+		if (argument.length > 1) {
+			if (!error) {
+				setArg((oldItems: IArgumentItem[]) => [
 					...oldItems,
-					{ text: argument, weight: importance },
+					{ text: argument, importance },
 				]);
-			setError(false);
+				setError(false);
+				setArgument('');
+			}
 		} else setError(true);
-	}, [argument, choiceTitle]);
+	}, [argument, importance, error, setArg]);
 
 	return (
 		<Wrapper>
@@ -39,18 +37,17 @@ export default function Argument({
 					error={error}
 					id="outlined-basic"
 					label={name}
-					required
 					variant="outlined"
-					onChange={(event) => setArgument(event.target.value)}
+					value={argument}
+					onChange={(event) => {
+						setError(false);
+						setArgument(event.target.value);
+					}}
 				/>
-				<Importance
-					importance={importance}
-					itemError={error}
-					setImportance={setImportance}
-				/>
+				<Importance importance={importance} setImportance={setImportance} />
 				<CustomButton text="Add" classes="secondary" onClick={addArgument} />
 			</FormWrapper>
-			<ArgumentsSummary args={args} />
+			<ArgumentsSummary args={data} />
 		</Wrapper>
 	);
 }
