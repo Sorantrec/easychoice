@@ -10,7 +10,7 @@ export default function CustomButton({
 }: ICustomButton) {
 	const customOnlick = (event: MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault();
-		onClick();
+		if(onClick) onClick();
 	};
 	return (
 		<Button

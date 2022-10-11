@@ -1,5 +1,5 @@
 export default interface ICustomButton {
-	onClick: () => void;
+	onClick?: () => void;
 	classes?: string;
 	text: string;
 }
